@@ -6,6 +6,7 @@ var cleanCSS = require('gulp-clean-css');
 var rename = require("gulp-rename");
 var uglify = require('gulp-uglify');
 var pkg = require('./package.json');
+var assetVersion = require('gulp-asset-version');
 
 // Set the banner content
 var banner = ['/*!\n',
@@ -32,6 +33,7 @@ gulp.task('sass', function() {
 // Minify compiled CSS
 gulp.task('minify-css', ['sass'], function() {
   return gulp.src('css/resume.css')
+    .pipe(assetVersion())
     .pipe(cleanCSS({
       compatibility: 'ie8'
     }))
@@ -47,6 +49,7 @@ gulp.task('minify-css', ['sass'], function() {
 // Minify custom JS
 gulp.task('minify-js', function() {
   return gulp.src('js/resume.js')
+    .pipe(assetVersion())
     .pipe(uglify())
     .pipe(header(banner, {
       pkg: pkg
@@ -115,8 +118,14 @@ gulp.task('copy', function() {
     .pipe(gulp.dest('vendor/blueimp-gallery/img'))
 })
 
+gulp.task('html',function() {
+  gulp.src("index.html")
+    .pipe(assetVersion())
+    .pipe(gulp.dest('./'));
+});
+
 // Default task
-gulp.task('default', ['sass', 'minify-css', 'minify-js', 'copy']);
+gulp.task('default', ['sass', 'minify-css', 'minify-js', 'copy', 'html']);
 
 // Configure the browserSync task
 gulp.task('browserSync', function() {
