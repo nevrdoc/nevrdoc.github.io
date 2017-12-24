@@ -100,6 +100,19 @@ gulp.task('copy', function() {
 
   gulp.src(['node_modules/simple-line-icons/**/*', '!node_modules/simple-line-icons/*.json', '!node_modules/simple-line-icons/*.md'])
     .pipe(gulp.dest('vendor/simple-line-icons'))
+
+  gulp.src([
+    'node_modules/blueimp-gallery/css/blueimp-gallery.min.css'
+  ])
+    .pipe(gulp.dest('vendor/blueimp-gallery/css'))
+  gulp.src([
+    'node_modules/blueimp-gallery/js/blueimp-gallery.min.js'
+  ])
+    .pipe(gulp.dest('vendor/blueimp-gallery/js'))
+  gulp.src([
+    'node_modules/blueimp-gallery/img/*'
+  ])
+    .pipe(gulp.dest('vendor/blueimp-gallery/img'))
 })
 
 // Default task
